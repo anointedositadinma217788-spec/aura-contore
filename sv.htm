@@ -1,0 +1,4092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saving Lives and Hope Charity Foundation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --orange: #F47920;
+  --orange-light: #FF9A4D;
+  --orange-dark: #D4611A;
+  --blue: #1B3A5C;
+  --blue-light: #2A5A8C;
+  --blue-dark: #0F2440;
+  --white: #FFFFFF;
+  --off-white: #F8F9FA;
+  --gray-light: #E8ECF0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--white);
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* Preloader */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--blue-dark);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-logo {
+  width: 120px;
+  height: 120px;
+  animation: pulse 1.5s ease-in-out infinite;
+  margin-bottom: 30px;
+}
+
+.loader-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(244, 121, 32, 0.2);
+  border-top: 4px solid var(--orange);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  color: var(--white);
+  font-size: 1.2rem;
+  margin-top: 20px;
+  animation: fadeInOut 2s ease-in-out infinite;
+  font-weight: 300;
+  letter-spacing: 3px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Floating Particles */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+  opacity: 0.15;
+  animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.15; }
+  90% { opacity: 0.15; }
+  100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+}
+
+/* Custom Cursor */
+.cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--orange);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transition: transform 0.15s ease, background 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor.active {
+  transform: scale(2);
+  background: rgba(244, 121, 32, 0.3);
+}
+
+/* Navigation */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  padding: 15px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+}
+
+nav.scrolled {
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  padding: 8px 50px;
+  backdrop-filter: blur(20px);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  z-index: 10001;
+}
+
+.nav-logo img {
+  height: 55px;
+  transition: all 0.4s ease;
+}
+
+nav.scrolled .nav-logo img {
+  height: 45px;
+}
+
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-logo-text span:first-child {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--white);
+  line-height: 1.1;
+  transition: color 0.4s ease;
+}
+
+nav.scrolled .nav-logo-text span:first-child {
+  color: var(--blue);
+}
+
+.nav-logo-text span:last-child {
+  font-size: 0.6rem;
+  color: var(--orange-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  list-style: none;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+nav.scrolled .nav-links li a {
+  color: var(--blue);
+}
+
+.nav-links li a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links li a:hover::before,
+.nav-links li a.active::before {
+  width: 60%;
+}
+
+.nav-links li a:hover {
+  color: var(--orange);
+}
+
+.nav-links li a.active {
+  color: var(--orange);
+}
+
+.nav-donate-btn {
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: var(--white) !important;
+  padding: 12px 30px !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 15px rgba(244, 121, 32, 0.4);
+  transition: all 0.4s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-donate-btn::before {
+  display: none !important;
+}
+
+.nav-donate-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.nav-donate-btn:hover::after {
+  animation: shimmer 0.6s ease forwards;
+}
+
+.nav-donate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(244, 121, 32, 0.5);
+  color: var(--white) !important;
+}
+
+@keyframes shimmer {
+  0% { left: -200%; }
+  100% { left: 200%; }
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 10001;
+  padding: 10px;
+}
+
+.hamburger span {
+  width: 30px;
+  height: 3px;
+  background: var(--white);
+  border-radius: 3px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav.scrolled .hamburger span {
+  background: var(--blue);
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+  background: var(--white) !important;
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+  background: var(--white) !important;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-links {
+  list-style: none;
+  text-align: center;
+}
+
+.mobile-menu-links li {
+  margin: 15px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease;
+}
+
+.mobile-menu.active .mobile-menu-links li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu-links li:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu-links li:nth-child(2) { transition-delay: 0.2s; }
+.mobile-menu-links li:nth-child(3) { transition-delay: 0.3s; }
+.mobile-menu-links li:nth-child(4) { transition-delay: 0.4s; }
+.mobile-menu-links li:nth-child(5) { transition-delay: 0.5s; }
+.mobile-menu-links li:nth-child(6) { transition-delay: 0.6s; }
+
+.mobile-menu-links li a {
+  text-decoration: none;
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  transition: color 0.3s ease;
+}
+
+.mobile-menu-links li a:hover {
+  color: var(--orange);
+}
+
+/* Page Sections */
+.page {
+  display: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+.page.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==================== HOME PAGE ==================== */
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  min-height: 700px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--blue-dark);
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(15, 36, 64, 0.9) 0%, rgba(27, 58, 92, 0.7) 50%, rgba(244, 121, 32, 0.3) 100%);
+  z-index: 2;
+}
+
+.hero-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.hero-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.05;
+  background: var(--orange);
+}
+
+.hero-shape:nth-child(1) {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  right: -100px;
+  animation: floatShape 15s ease-in-out infinite;
+}
+
+.hero-shape:nth-child(2) {
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  left: -100px;
+  animation: floatShape 12s ease-in-out infinite reverse;
+  background: var(--white);
+}
+
+.hero-shape:nth-child(3) {
+  width: 200px;
+  height: 200px;
+  top: 40%;
+  left: 60%;
+  animation: floatShape 10s ease-in-out infinite;
+}
+
+@keyframes floatShape {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(30px, -30px) rotate(5deg); }
+  50% { transform: translate(-20px, 20px) rotate(-3deg); }
+  75% { transform: translate(10px, -10px) rotate(2deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 30px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(244, 121, 32, 0.15);
+  border: 1px solid rgba(244, 121, 32, 0.3);
+  padding: 8px 24px;
+  border-radius: 50px;
+  color: var(--orange-light);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+  animation: fadeInUp 1s ease 0.3s both;
+  backdrop-filter: blur(10px);
+}
+
+.hero-badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+  animation: pulseDot 2s ease infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 25px;
+  animation: fadeInUp 1s ease 0.5s both;
+}
+
+.hero h1 .highlight {
+  color: var(--orange);
+  position: relative;
+  display: inline-block;
+}
+
+.hero h1 .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: rgba(244, 121, 32, 0.3);
+  border-radius: 4px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  margin-bottom: 40px;
+  animation: fadeInUp 1s ease 0.7s both;
+  font-weight: 300;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  animation: fadeInUp 1s ease 0.9s both;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 30px rgba(244, 121, 32, 0.4);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(244, 121, 32, 0.5);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: transparent;
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-secondary:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  transform: translateY(-3px);
+  background: rgba(244, 121, 32, 0.1);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  animation: fadeInUp 1s ease 1.2s both;
+}
+
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  color: var(--orange);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--orange), transparent);
+  animation: scrollBounce 2s ease infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0.5); opacity: 0.5; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Animated Stats Bar */
+.stats-bar {
+  background: var(--white);
+  padding: 0;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  margin-top: -60px;
+  margin-left: 60px;
+  margin-right: 60px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.stat-item {
+  padding: 40px 30px;
+  text-align: center;
+  position: relative;
+  transition: all 0.5s ease;
+  cursor: default;
+  overflow: hidden;
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.stat-item:hover::before {
+  opacity: 1;
+}
+
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: var(--gray-light);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.5s ease;
+}
+
+.stat-item:hover .stat-icon {
+  transform: scale(1.2) rotateY(360deg);
+}
+
+.stat-number {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--blue);
+  font-family: 'Playfair Display', serif;
+  position: relative;
+  z-index: 1;
+  transition: color 0.5s ease;
+}
+
+.stat-item:hover .stat-number {
+  color: var(--white);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+  transition: color 0.5s ease;
+}
+
+.stat-item:hover .stat-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Section Styles */
+section {
+  padding: 100px 60px;
+  position: relative;
+}
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(244, 121, 32, 0.1);
+  padding: 6px 20px;
+  border-radius: 50px;
+  color: var(--orange);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--blue);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #777;
+  max-width: 600px;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+/* About / Mission Section */
+.about-section {
+  background: var(--off-white);
+  overflow: hidden;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.about-image {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+.about-image img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.about-image:hover img {
+  transform: scale(1.05);
+}
+
+.about-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px;
+  background: linear-gradient(to top, rgba(15, 36, 64, 0.9), transparent);
+}
+
+.about-image-overlay p {
+  color: var(--white);
+  font-style: italic;
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.about-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--blue);
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.about-content p {
+  color: #666;
+  line-height: 1.9;
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.about-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 20px;
+  background: var(--white);
+  border-radius: 15px;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.about-feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.about-feature-icon {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--white);
+}
+
+.about-feature h4 {
+  font-size: 0.95rem;
+  color: var(--blue);
+  margin-bottom: 5px;
+}
+
+.about-feature p {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/* Programs Section */
+.programs-section {
+  background: var(--white);
+  overflow: hidden;
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.program-card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  cursor: pointer;
+  group: true;
+}
+
+.program-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.program-card-image {
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+}
+
+.program-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.program-card:hover .program-card-image img {
+  transform: scale(1.1);
+}
+
+.program-card-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+}
+
+.program-card-category {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: var(--orange);
+  color: var(--white);
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 2;
+}
+
+.program-card-body {
+  padding: 30px;
+}
+
+.program-card-body h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--blue);
+  margin-bottom: 12px;
+  transition: color 0.3s ease;
+}
+
+.program-card:hover .program-card-body h3 {
+  color: var(--orange);
+}
+
+.program-card-body p {
+  color: #777;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.program-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--orange);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: gap 0.3s ease;
+}
+
+.program-card-link:hover {
+  gap: 15px;
+}
+
+.program-card-link .arrow {
+  transition: transform 0.3s ease;
+}
+
+.program-card:hover .program-card-link .arrow {
+  transform: translateX(5px);
+}
+
+/* Impact Section */
+.impact-section {
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.impact-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(244, 121, 32, 0.15), transparent 70%);
+  border-radius: 50%;
+  animation: floatShape 15s ease-in-out infinite;
+}
+
+.impact-section .section-title {
+  color: var(--white);
+}
+
+.impact-section .section-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.impact-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  transition: all 0.5s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.impact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--orange), var(--orange-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.impact-card:hover::before {
+  transform: scaleX(1);
+}
+
+.impact-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
+}
+
+.impact-card-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  transition: transform 0.5s ease;
+}
+
+.impact-card:hover .impact-card-icon {
+  transform: rotateY(180deg);
+}
+
+.impact-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.impact-card p {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  font-weight: 300;
+  font-size: 0.95rem;
+}
+
+/* Testimonials */
+.testimonials-section {
+  background: var(--off-white);
+  overflow: hidden;
+}
+
+.testimonials-slider {
+  margin-top: 60px;
+  position: relative;
+}
+
+.testimonials-track {
+  display: flex;
+  gap: 30px;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.testimonial-card {
+  min-width: calc(33.333% - 20px);
+  background: var(--white);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-quote {
+  font-size: 3rem;
+  color: var(--orange);
+  font-family: 'Playfair Display', serif;
+  line-height: 1;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.testimonial-card p {
+  color: #666;
+  line-height: 1.8;
+  font-style: italic;
+  font-weight: 300;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.testimonial-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--orange);
+}
+
+.testimonial-info h4 {
+  color: var(--blue);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.testimonial-info span {
+  color: #999;
+  font-size: 0.8rem;
+}
+
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before,
+.cta-section::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cta-section::before {
+  width: 400px;
+  height: 400px;
+  top: -200px;
+  left: -100px;
+}
+
+.cta-section::after {
+  width: 300px;
+  height: 300px;
+  bottom: -150px;
+  right: -50px;
+}
+
+.cta-section .section-title {
+  color: var(--white);
+  position: relative;
+  z-index: 2;
+}
+
+.cta-section p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  font-weight: 300;
+  position: relative;
+  z-index: 2;
+}
+
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 50px;
+  background: var(--white);
+  color: var(--orange);
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 2;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-white:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== ABOUT PAGE ==================== */
+.page-header {
+  height: 50vh;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(244,121,32,0.05)" d="M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,138.7C672,128,768,128,864,149.3C960,171,1056,213,1152,213.3C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+  background-size: cover;
+  background-position: bottom;
+}
+
+.page-header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--white);
+  font-weight: 900;
+  margin-bottom: 15px;
+}
+
+.page-header p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.breadcrumb a {
+  color: var(--orange-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--orange);
+}
+
+.breadcrumb span {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+
+/* ==================== BOARD OF TRUSTEES ==================== */
+.trustees-section {
+  background: var(--off-white);
+}
+
+.trustees-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.trustee-card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.trustee-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.trustee-image {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.trustee-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.trustee-card:hover .trustee-image img {
+  transform: scale(1.1);
+}
+
+.trustee-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: linear-gradient(to top, rgba(15, 36, 64, 0.95) 0%, transparent 50%);
+  display: flex;
+  align-items: flex-end;
+  padding: 25px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.trustee-card:hover .trustee-overlay {
+  opacity: 1;
+}
+
+.trustee-social {
+  display: flex;
+  gap: 10px;
+}
+
+.trustee-social a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.trustee-social a:hover {
+  background: var(--orange);
+  transform: translateY(-3px);
+}
+
+.trustee-info {
+  padding: 25px;
+  text-align: center;
+}
+
+.trustee-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--blue);
+  margin-bottom: 5px;
+}
+
+.trustee-info span {
+  color: var(--orange);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.trustee-info p {
+  color: #888;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Featured Trustee */
+.featured-trustee {
+  margin-top: 60px;
+  background: var(--white);
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.featured-trustee-image {
+  height: 100%;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+.featured-trustee-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-trustee-content {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-trustee-content .section-badge {
+  width: fit-content;
+}
+
+.featured-trustee-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--blue);
+  margin-bottom: 5px;
+}
+
+.featured-trustee-content .trustee-role {
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.featured-trustee-content p {
+  color: #666;
+  line-height: 1.9;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+/* ==================== JOIN US PAGE ==================== */
+.join-section {
+  background: var(--off-white);
+}
+
+.join-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-top: 60px;
+  align-items: start;
+}
+
+.join-info {
+  position: sticky;
+  top: 120px;
+}
+
+.join-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--blue);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.join-info p {
+  color: #666;
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.join-benefits {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.join-benefits li {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--gray-light);
+  transition: all 0.3s ease;
+}
+
+.join-benefits li:hover {
+  padding-left: 10px;
+}
+
+.join-benefits li .check {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 0.8rem;
+}
+
+.join-benefits li span {
+  color: #555;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.join-contact-info {
+  margin-top: 30px;
+}
+
+.join-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.join-contact-item .icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: rgba(244, 121, 32, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--orange);
+  font-size: 1.1rem;
+}
+
+.join-contact-item span {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Form */
+.join-form-container {
+  background: var(--white);
+  border-radius: 25px;
+  padding: 50px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.join-form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--orange), var(--blue), var(--orange));
+  background-size: 200% 100%;
+  animation: gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--blue);
+  margin-bottom: 5px;
+}
+
+.form-subtitle {
+  color: #999;
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  color: var(--blue);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 20px;
+  border: 2px solid var(--gray-light);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.4s ease;
+  background: var(--off-white);
+  color: #333;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--orange);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(244, 121, 32, 0.1);
+}
+
+.form-group textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 25px 0;
+}
+
+.form-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--orange);
+  margin-top: 2px;
+}
+
+.form-checkbox label {
+  font-size: 0.85rem;
+  color: #777;
+  font-weight: 400;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(244, 121, 32, 0.4);
+}
+
+.form-submit::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: width 0.6s ease, height 0.6s ease;
+  transform: translate(-50%, -50%);
+}
+
+.form-submit:active::after {
+  width: 400px;
+  height: 400px;
+}
+
+/* Ways to Help */
+.ways-section {
+  background: var(--white);
+}
+
+.ways-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.way-card {
+  text-align: center;
+  padding: 50px 30px;
+  border-radius: 20px;
+  border: 2px solid var(--gray-light);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.way-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+}
+
+.way-card:hover::before {
+  opacity: 1;
+}
+
+.way-card:hover {
+  border-color: transparent;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(244, 121, 32, 0.3);
+}
+
+.way-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.way-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(244, 121, 32, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 20px;
+  transition: all 0.5s ease;
+}
+
+.way-card:hover .way-icon {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotateY(180deg);
+}
+
+.way-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--blue);
+  margin-bottom: 15px;
+  transition: color 0.5s ease;
+}
+
+.way-card:hover h3 {
+  color: var(--white);
+}
+
+.way-card p {
+  color: #777;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  font-weight: 300;
+  transition: color 0.5s ease;
+}
+
+.way-card:hover p {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Newsletter */
+.newsletter-section {
+  background: var(--blue-dark);
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletter-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.newsletter-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--white);
+  margin-bottom: 15px;
+}
+
+.newsletter-content p {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 16px 24px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: all 0.4s ease;
+}
+
+.newsletter-form input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.newsletter-form input:focus {
+  border-color: var(--orange);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.newsletter-form button {
+  padding: 16px 35px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+  white-space: nowrap;
+}
+
+.newsletter-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(244, 121, 32, 0.4);
+}
+
+/* Footer */
+footer {
+  background: var(--blue-dark);
+  color: var(--white);
+  padding: 80px 60px 30px;
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.footer-about img {
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.footer-about p {
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.8;
+  font-weight: 300;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-social a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  text-decoration: none;
+  transition: all 0.4s ease;
+  font-size: 1rem;
+}
+
+.footer-social a:hover {
+  background: var(--orange);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(244, 121, 32, 0.4);
+}
+
+.footer-column h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.footer-column h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--orange);
+  border-radius: 2px;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links li a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 300;
+}
+
+.footer-links li a::before {
+  content: '→';
+  color: var(--orange);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.footer-links li a:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.footer-links li a:hover {
+  color: var(--orange);
+  padding-left: 5px;
+}
+
+.footer-contact p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+
+.footer-contact .icon {
+  color: var(--orange);
+  min-width: 20px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  font-weight: 300;
+}
+
+.footer-bottom a {
+  color: var(--orange);
+  text-decoration: none;
+}
+
+/* Back to Top */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  box-shadow: 0 5px 20px rgba(244, 121, 32, 0.4);
+  border: none;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(244, 121, 32, 0.5);
+}
+
+/* Scroll Reveal Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Wave Separator */
+.wave-separator {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.wave-separator svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-top: 60px;
+}
+
+.gallery-item {
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  aspect-ratio: 1;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-item::after {
+  content: '🔍';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+.gallery-item:nth-child(1) { grid-row: span 2; }
+.gallery-item:nth-child(5) { grid-column: span 2; }
+
+/* Timeline */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 60px auto 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--orange), var(--blue));
+  border-radius: 3px;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.timeline-item:nth-child(odd) {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-right: 50px;
+  margin-left: 0;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  margin-left: 50px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: 4px solid var(--white);
+  box-shadow: 0 0 0 4px var(--orange);
+  z-index: 2;
+}
+
+.timeline-content {
+  flex: 1;
+  max-width: calc(50% - 50px);
+  background: var(--white);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s ease;
+}
+
+.timeline-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-year {
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.timeline-content h4 {
+  color: var(--blue);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.timeline-content p {
+  color: #777;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Projects/Events Counter */
+.counter-section {
+  background: var(--white);
+  padding: 80px 60px;
+}
+
+.counter-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+}
+
+.counter-item {
+  text-align: center;
+  padding: 30px;
+}
+
+.counter-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--orange);
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 5px;
+}
+
+.counter-label {
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .trustees-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .counter-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  section {
+    padding: 80px 30px;
+  }
+  
+  nav {
+    padding: 15px 30px;
+  }
+  
+  nav.scrolled {
+    padding: 8px 30px;
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+  }
+  
+  .stats-bar {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .programs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .featured-trustee {
+    grid-template-columns: 1fr;
+  }
+  
+  .join-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .join-info {
+    position: static;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .gallery-item:nth-child(1) { grid-row: span 1; }
+  .gallery-item:nth-child(5) { grid-column: span 1; }
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .stats-bar {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .impact-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .trustees-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .ways-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .testimonial-card {
+    min-width: 100%;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  footer {
+    padding: 60px 30px 20px;
+  }
+  
+  .newsletter-section {
+    padding: 60px 30px;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+  }
+  
+  .page-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .counter-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .timeline::before {
+    left: 20px;
+  }
+  
+  .timeline-item,
+  .timeline-item:nth-child(odd) {
+    flex-direction: column;
+    text-align: left;
+    padding-left: 50px;
+  }
+  
+  .timeline-dot {
+    left: 20px;
+  }
+  
+  .timeline-content,
+  .timeline-item:nth-child(odd) .timeline-content,
+  .timeline-item:nth-child(even) .timeline-content {
+    max-width: 100%;
+    margin: 0;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cursor {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+  }
+  
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .about-features {
+    grid-template-columns: 1fr;
+  }
+  
+  .trustees-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .join-form-container {
+    padding: 30px 20px;
+  }
+  
+  section {
+    padding: 60px 20px;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Success Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: 25px;
+  padding: 50px;
+  text-align: center;
+  max-width: 450px;
+  transform: scale(0.8) translateY(30px);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin: 0 auto 25px;
+  animation: successBounce 0.6s ease 0.3s both;
+}
+
+@keyframes successBounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.modal h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+.modal p {
+  color: #777;
+  margin-bottom: 25px;
+  font-weight: 300;
+}
+
+/* Marquee */
+.marquee-section {
+  background: var(--orange);
+  padding: 15px 0;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 50px;
+  animation: marquee 20s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.marquee-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--white);
+  opacity: 0.5;
+}
+
+/* Animated Background Gradient */
+.gradient-bg {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Logo SVG placeholder style */
+.logo-svg {
+  display: inline-block;
+}
+
+/* Partner logos */
+.partners-section {
+  padding: 60px;
+  background: var(--white);
+  text-align: center;
+}
+
+.partners-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.partner-logo {
+  opacity: 0.4;
+  transition: all 0.4s ease;
+  font-size: 2.5rem;
+  filter: grayscale(100%);
+  cursor: pointer;
+}
+
+.partner-logo:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.1);
+}
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+  <svg class="loader-logo" viewBox="0 0 100 100">
+    <circle cx="50" cy="40" r="25" fill="none" stroke="#3498db" stroke-width="2" opacity="0.6"/>
+    <path d="M30 60 Q50 30 70 60 Q50 80 30 60Z" fill="#F47920" opacity="0.8"/>
+    <path d="M25 65 Q50 25 75 65 Q50 85 25 65Z" fill="none" stroke="#F47920" stroke-width="1.5"/>
+  </svg>
+  <div class="loader-spinner"></div>
+  <div class="loader-text">TOUCHING LIVES GLOBALLY</div>
+</div>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+
+<!-- Floating Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#" class="nav-logo" onclick="navigateTo('home')">
+    <svg width="55" height="55" viewBox="0 0 100 100">
+      <circle cx="50" cy="35" r="20" fill="none" stroke="#3498db" stroke-width="2.5"/>
+      <ellipse cx="50" cy="35" rx="20" ry="20" fill="url(#globe-grad)" opacity="0.9"/>
+      <defs>
+        <linearGradient id="globe-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#2ecc71"/>
+          <stop offset="50%" style="stop-color:#3498db"/>
+          <stop offset="100%" style="stop-color:#2ecc71"/>
+        </linearGradient>
+      </defs>
+      <path d="M35 35 C35 20, 65 20, 65 35" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <line x1="50" y1="15" x2="50" y2="55" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <line x1="30" y1="35" x2="70" y2="35" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <path d="M28 58 Q38 42 50 55 Q62 42 72 58" fill="#F47920"/>
+      <path d="M25 62 Q38 45 50 58 Q62 45 75 62" fill="#F47920" opacity="0.7"/>
+      <path d="M20 70 Q40 64 60 72 Q70 66 80 70" fill="none" stroke="#F47920" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M22 74 Q40 68 55 76 Q68 70 78 74" fill="none" stroke="#1B3A5C" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span>Saving Lives & Hope</span>
+      <span>Charity Foundation</span>
+    </div>
+  </a>
+  
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="navigateTo('home')" data-page="home">Home</a></li>
+    <li><a href="#" onclick="navigateTo('about')" data-page="about">About Us</a></li>
+    <li><a href="#" onclick="navigateTo('programs')" data-page="programs">Programs</a></li>
+    <li><a href="#" onclick="navigateTo('trustees')" data-page="trustees">Board of Trustees</a></li>
+    <li><a href="#" onclick="navigateTo('join')" data-page="join">Join Us</a></li>
+    <li><a href="#" class="nav-donate-btn" onclick="navigateTo('join')">Donate Now ❤️</a></li>
+  </ul>
+  
+  <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-menu-links">
+    <li><a href="#" onclick="navigateTo('home'); toggleMobile();">Home</a></li>
+    <li><a href="#" onclick="navigateTo('about'); toggleMobile();">About Us</a></li>
+    <li><a href="#" onclick="navigateTo('programs'); toggleMobile();">Programs</a></li>
+    <li><a href="#" onclick="navigateTo('trustees'); toggleMobile();">Board of Trustees</a></li>
+    <li><a href="#" onclick="navigateTo('join'); toggleMobile();">Join Us</a></li>
+    <li><a href="#" onclick="navigateTo('join'); toggleMobile();" style="color: #F47920;">Donate Now ❤️</a></li>
+  </ul>
+</div>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div class="page active" id="page-home">
+  
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80" alt="Charity" class="hero-bg-image">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-shapes">
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Making a difference since 2015
+      </div>
+      <h1>
+        Saving Lives,<br>
+        Restoring <span class="highlight">Hope</span>
+      </h1>
+      <p>
+        We are dedicated to transforming communities and touching lives globally through 
+        compassion, education, healthcare, and sustainable development programs.
+      </p>
+      <div class="hero-buttons">
+        <a href="#" class="btn-primary" onclick="navigateTo('join')">
+          Get Involved →
+        </a>
+        <a href="#" class="btn-secondary" onclick="scrollToSection('about-home')">
+          Learn More ↓
+        </a>
+      </div>
+    </div>
+    
+    <div class="hero-scroll">
+      <div class="scroll-indicator" onclick="scrollToSection('stats')">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Marquee -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="marquee-dot"></span>TOUCHING LIVES GLOBALLY</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>HEALTHCARE FOR ALL</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>EDUCATION MATTERS</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>CLEAN WATER ACCESS</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>COMMUNITY DEVELOPMENT</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>HOPE FOR TOMORROW</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>TOUCHING LIVES GLOBALLY</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>HEALTHCARE FOR ALL</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>EDUCATION MATTERS</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>CLEAN WATER ACCESS</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>COMMUNITY DEVELOPMENT</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>HOPE FOR TOMORROW</span>
+    </div>
+  </div>
+  
+  <!-- Stats Bar -->
+  <div class="stats-bar" id="stats">
+    <div class="stats-container">
+      <div class="stat-item reveal">
+        <div class="stat-icon">🌍</div>
+        <div class="stat-number" data-count="25">0</div>
+        <div class="stat-label">Countries Reached</div>
+      </div>
+      <div class="stat-item reveal" style="transition-delay: 0.1s">
+        <div class="stat-icon">❤️</div>
+        <div class="stat-number" data-count="50000">0</div>
+        <div class="stat-label">Lives Impacted</div>
+      </div>
+      <div class="stat-item reveal" style="transition-delay: 0.2s">
+        <div class="stat-icon">🤝</div>
+        <div class="stat-number" data-count="1200">0</div>
+        <div class="stat-label">Volunteers</div>
+      </div>
+      <div class="stat-item reveal" style="transition-delay: 0.3s">
+        <div class="stat-icon">📋</div>
+        <div class="stat-number" data-count="150">0</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- About Section -->
+  <section class="about-section" id="about-home">
+    <div class="reveal">
+      <div class="section-badge">✦ WHO WE ARE</div>
+      <div class="section-title">Transforming Lives Through<br>Compassion & Action</div>
+      <div class="section-subtitle">Creating lasting change in communities that need it most</div>
+    </div>
+    
+    <div class="about-grid">
+      <div class="about-image reveal-left">
+        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80" alt="Our Mission">
+        <div class="about-image-overlay">
+          <p>"Every life matters. Every hope counts."</p>
+        </div>
+      </div>
+      <div class="about-content reveal-right">
+        <h3>Our Mission & Vision</h3>
+        <p>
+          Saving Lives and Hope Charity Foundation is committed to creating a world where every 
+          individual has access to basic necessities, quality education, and healthcare services. 
+          We believe that no life should be left behind.
+        </p>
+        <p>
+          Since our establishment, we have been at the forefront of humanitarian efforts, 
+          delivering aid to the most vulnerable communities across the globe, from providing 
+          clean water to establishing educational programs that empower future generations.
+        </p>
+        
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon">🏥</div>
+            <div>
+              <h4>Healthcare Access</h4>
+              <p>Free medical camps and health facilities</p>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">📚</div>
+            <div>
+              <h4>Education Programs</h4>
+              <p>Scholarships and school building projects</p>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">💧</div>
+            <div>
+              <h4>Clean Water</h4>
+              <p>Borehole drilling in rural communities</p>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">🏠</div>
+            <div>
+              <h4>Shelter & Housing</h4>
+              <p>Building homes for displaced families</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Programs Section -->
+  <section class="programs-section">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-badge">✦ OUR PROGRAMS</div>
+      <div class="section-title">What We Do</div>
+      <div class="section-subtitle" style="margin: 0 auto;">
+        Our programs span across continents, addressing the most pressing needs of communities worldwide
+      </div>
+    </div>
+    
+    <div class="programs-grid">
+      <div class="program-card reveal" style="transition-delay: 0.1s">
+        <div class="program-card-image">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80" alt="Healthcare">
+          <span class="program-card-category">Healthcare</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Medical Outreach</h3>
+          <p>Providing free medical services, surgeries, and medicines to underserved communities across multiple nations.</p>
+          <a href="#" class="program-card-link">Learn More <span class="arrow">→</span></a>
+        </div>
+      </div>
+      
+      <div class="program-card reveal" style="transition-delay: 0.2s">
+        <div class="program-card-image">
+          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80" alt="Education">
+          <span class="program-card-category">Education</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Education For All</h3>
+          <p>Building schools, providing scholarships, and training teachers in remote areas to ensure quality education.</p>
+          <a href="#" class="program-card-link">Learn More <span class="arrow">→</span></a>
+        </div>
+      </div>
+      
+      <div class="program-card reveal" style="transition-delay: 0.3s">
+        <div class="program-card-image">
+          <img src="https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=600&q=80" alt="Water">
+          <span class="program-card-category">Clean Water</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Water & Sanitation</h3>
+          <p>Installing water purification systems and drilling boreholes, bringing clean water to thousands of families.</p>
+          <a href="#" class="program-card-link">Learn More <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Impact Section -->
+  <section class="impact-section">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-badge" style="background: rgba(244, 121, 32, 0.2);">✦ OUR IMPACT</div>
+      <div class="section-title">Creating Lasting Change</div>
+      <div class="section-subtitle" style="margin: 0 auto; color: rgba(255,255,255,0.7);">
+        See how your support transforms lives every single day
+      </div>
+    </div>
+    
+    <div class="impact-grid">
+      <div class="impact-card reveal-left">
+        <div class="impact-card-icon">🌱</div>
+        <h3>Sustainable Development</h3>
+        <p>We implement sustainable farming programs that help communities become self-sufficient, reducing dependency on external aid and fostering economic growth.</p>
+      </div>
+      <div class="impact-card reveal-right">
+        <div class="impact-card-icon">👶</div>
+        <h3>Child Welfare</h3>
+        <p>Our child welfare programs provide nutrition, education, and safe environments for over 10,000 children, ensuring they have every opportunity to thrive and succeed.</p>
+      </div>
+      <div class="impact-card reveal-left" style="transition-delay: 0.2s">
+        <div class="impact-card-icon">🏗️</div>
+        <h3>Infrastructure Building</h3>
+        <p>From schools to hospitals to community centers, we build the infrastructure that communities need to grow and prosper for generations to come.</p>
+      </div>
+      <div class="impact-card reveal-right" style="transition-delay: 0.2s">
+        <div class="impact-card-icon">🤲</div>
+        <h3>Emergency Relief</h3>
+        <p>When disasters strike, we are among the first responders, delivering emergency supplies, shelter, and medical aid to those affected by natural disasters and conflicts.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-badge">✦ TESTIMONIALS</div>
+      <div class="section-title">Stories of Hope</div>
+      <div class="section-subtitle" style="margin: 0 auto;">
+        Hear from the lives we've touched around the world
+      </div>
+    </div>
+    
+    <div class="testimonials-slider">
+      <div class="testimonials-track" id="testimonialsTrack">
+        <div class="testimonial-card reveal" style="transition-delay: 0.1s">
+          <div class="testimonial-quote">"</div>
+          <p>The foundation changed my life completely. Thanks to their scholarship program, I was able to complete my education and now I'm a teacher helping others in my community.</p>
+          <div class="testimonial-author">
+            <div style="width:55px;height:55px;border-radius:50%;background:linear-gradient(135deg,#F47920,#FF9A4D);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:3px solid #F47920;">👩🏾</div>
+            <div class="testimonial-info">
+              <h4>Amina Johnson</h4>
+              <span>Scholarship Beneficiary, Kenya</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card reveal" style="transition-delay: 0.2s">
+          <div class="testimonial-quote">"</div>
+          <p>When the floods hit our village, Saving Lives and Hope was there within days. They provided us with food, shelter, and the hope to rebuild. I will forever be grateful.</p>
+          <div class="testimonial-author">
+            <div style="width:55px;height:55px;border-radius:50%;background:linear-gradient(135deg,#1B3A5C,#2A5A8C);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:3px solid #F47920;">👨🏽</div>
+            <div class="testimonial-info">
+              <h4>David Okonkwo</h4>
+              <span>Flood Survivor, Nigeria</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card reveal" style="transition-delay: 0.3s">
+          <div class="testimonial-quote">"</div>
+          <p>Before the foundation drilled a borehole in our village, we walked 10 miles for water. Now our children are healthy, our crops grow, and our community is thriving.</p>
+          <div class="testimonial-author">
+            <div style="width:55px;height:55px;border-radius:50%;background:linear-gradient(135deg,#27ae60,#2ecc71);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:3px solid #F47920;">👩🏿</div>
+            <div class="testimonial-info">
+              <h4>Grace Mwangi</h4>
+              <span>Community Leader, Tanzania</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners -->
+  <div class="partners-section reveal">
+    <div class="section-badge">✦ OUR PARTNERS</div>
+    <div class="section-title" style="font-size: 2rem;">Trusted By Organizations Worldwide</div>
+    <div class="partners-grid">
+      <div class="partner-logo">🏛️</div>
+      <div class="partner-logo">🌐</div>
+      <div class="partner-logo">🏥</div>
+      <div class="partner-logo">🎓</div>
+      <div class="partner-logo">💚</div>
+      <div class="partner-logo">🤝</div>
+    </div>
+  </div>
+  
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="reveal">
+      <div class="section-title">Ready to Make a Difference?</div>
+      <p>Join thousands of supporters who are helping us save lives and restore hope to communities around the world.</p>
+      <button class="btn-white" onclick="navigateTo('join')">
+        Join Us Today ✨
+      </button>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== ABOUT PAGE ==================== -->
+<div class="page" id="page-about">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1>About Us</h1>
+      <p>Learn about our mission, vision, and the impact we create worldwide</p>
+      <div class="breadcrumb">
+        <a href="#" onclick="navigateTo('home')">Home</a>
+        <span>→</span>
+        <span style="color: var(--orange-light)">About Us</span>
+      </div>
+    </div>
+  </div>
+  
+  <section class="about-section">
+    <div class="about-grid">
+      <div class="about-content reveal-left">
+        <div class="section-badge">✦ OUR STORY</div>
+        <h3>A Journey of Compassion</h3>
+        <p>
+          Founded with a vision to create a world where every life is valued and every hope 
+          is nurtured, Saving Lives and Hope Charity Foundation has grown from a small group 
+          of passionate individuals to a global force for good.
+        </p>
+        <p>
+          Our journey began in 2015, when a group of dedicated humanitarians came together 
+          with a shared dream — to touch lives globally. From our humble beginnings, we have 
+          expanded our reach to over 25 countries, impacting the lives of more than 50,000 people.
+        </p>
+        <p>
+          We believe in the power of community, the strength of unity, and the transformative 
+          potential of compassionate action. Every project we undertake, every life we touch, 
+          is guided by our unwavering commitment to creating lasting, positive change.
+        </p>
+      </div>
+      <div class="about-image reveal-right">
+        <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&q=80" alt="Our Story">
+        <div class="about-image-overlay">
+          <p>"Together, we can change the world — one life at a time."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Timeline -->
+  <section style="background: var(--off-white);">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-badge">✦ OUR JOURNEY</div>
+      <div class="section-title">Milestones Through The Years</div>
+    </div>
+    
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2015</div>
+          <h4>Foundation Established</h4>
+          <p>Saving Lives and Hope Charity Foundation was officially founded with a mission to touch lives globally.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal" style="transition-delay: 0.1s">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2016</div>
+          <h4>First Medical Outreach</h4>
+          <p>Conducted our first major medical outreach program, serving over 2,000 patients in rural communities.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal" style="transition-delay: 0.2s">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2018</div>
+          <h4>International Expansion</h4>
+          <p>Expanded operations to 10 countries across Africa, Asia, and South America.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal" style="transition-delay: 0.3s">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2020</div>
+          <h4>COVID-19 Response</h4>
+          <p>Deployed emergency response teams to provide PPE, food, and medical supplies during the pandemic.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal" style="transition-delay: 0.4s">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2023</div>
+          <h4>50,000 Lives Impacted</h4>
+          <p>Reached a milestone of touching over 50,000 lives across 25 countries worldwide.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal" style="transition-delay: 0.5s">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2025</div>
+          <h4>Vision 2030</h4>
+          <p>Launched our ambitious Vision 2030 plan to reach 100 countries and impact 1 million lives.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="ways-section">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-badge">✦ OUR VALUES</div>
+      <div class="section-title">What Drives Us</div>
+      <div class="section-subtitle" style="margin: 0 auto;">The principles that guide every action we take</div>
+    </div>
+    
+    <div class="ways-grid">
+      <div class="way-card reveal" style="transition-delay: 0.1s">
+        <div class="way-icon">💡</div>
+        <h3>Transparency</h3>
+        <p>We maintain complete transparency in all our operations, finances, and impact reporting, ensuring every donor knows exactly where their contribution goes.</p>
+      </div>
+      <div class="way-card reveal" style="transition-delay: 0.2s">
+        <div class="way-icon">🤝</div>
+        <h3>Integrity</h3>
+        <p>Our commitment to integrity means we uphold the highest ethical standards in everything we do, from fundraising to program implementation.</p>
+      </div>
+      <div class="way-card reveal" style="transition-delay: 0.3s">
+        <div class="way-icon">🌟</div>
+        <h3>Compassion</h3>
+        <p>Compassion is at the heart of our foundation. We approach every challenge with empathy and genuine care for the communities we serve.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="reveal">
+      <div class="section-title">Want to Learn More?</div>
+      <p>Discover how you can be part of our mission to save lives and restore hope worldwide.</p>
+      <button class="btn-white" onclick="navigateTo('join')">Get Involved ❤️</button>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== PROGRAMS PAGE ==================== -->
+<div class="page" id="page-programs">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1>Our Programs</h1>
+      <p>Transforming communities through targeted, sustainable initiatives</p>
+      <div class="breadcrumb">
+        <a href="#" onclick="navigateTo('home')">Home</a>
+        <span>→</span>
+        <span style="color: var(--orange-light)">Programs</span>
+      </div>
+    </div>
+  </div>
+  
+  <section class="programs-section">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-badge">✦ WHAT WE DO</div>
+      <div class="section-title">Programs That Transform Lives</div>
+      <div class="section-subtitle" style="margin: 0 auto;">Each program is carefully designed to create maximum, lasting impact</div>
+    </div>
+    
+    <div class="programs-grid" style="margin-top: 60px;">
+      <div class="program-card reveal" style="transition-delay: 0.1s">
+        <div class="program-card-image">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80" alt="Healthcare">
+          <span class="program-card-category">Healthcare</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Medical Outreach Program</h3>
+          <p>Free medical services, surgeries, medicines, and health education in underserved communities.</p>
+          <a href="#" class="program-card-link">Learn More <span class="arrow">→</span></a>
+        </div>
+      </div>
+      
+      <div class="program-card reveal" style="transition-delay: 0.2s">
+        <div class="program-card-image">
+          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80" alt="Education">
+          <span class="program-card-category">Education</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Education For All Initiative</h3>
+          <p>Building schools, providing scholarships, and training teachers in remote and underserved areas.</p>
+          <a href="#" class="program-card-link">Learn More <span class="arrow">→</span></a>
+        </div>
+      </div>
+      
+      <div class="program-card reveal" style="transition-delay: 0.3s">
+        <div class="program-card-image">
+          <img src="https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=600&q=80" alt="Water">
+          <span class="program-card-category">Clean Water</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Water & Sanitation</h3>
+          <p>Installing purification systems and drilling boreholes for clean, safe drinking water access.</p>
+          <a href="#" class="program-card-link">Learn More <span class="arrow">→</span></a>
+        </div>
+      </div>
+      
+      <div class="program-card reveal" style="transition-delay: 0.1s">
+        <div class="program-card-image">
+          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80" alt="Food">
+          <span class="program-card-category">Food Security</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Hunger Relief Program</h3>
+          <p>Providing nutritious meals, sustainable farming education, and food distribution to families in need.</p>
+          <a href="#" class="program-card-link">Learn More <span class="arrow">→</span></a>
+        </div>
+      </div>
+      
+      <div class="program-card reveal" style="transition-delay: 0.2s">
+        <div class="program-card-image">
+          <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=600&q=80" alt="Women">
+          <span class="program-card-category">Empowerment</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Women Empowerment</h3>
+          <p>Skill development, microfinance, and mentorship programs designed to empower women and girls.</p>
+          <a href="#" class="program-card-link">Learn More <span class="arrow">→</span></a>
+        </div>
+      </div>
+      
+      <div class="program-card reveal" style="transition-delay: 0.3s">
+        <div class="program-card-image">
+          <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=600&q=80" alt="Emergency">
+          <span class="program-card-category">Emergency</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Disaster Relief</h3>
+          <p>Rapid response emergency aid including food, shelter, medical supplies, and rehabilitation support.</p>
+          <a href="#" class="program-card-link">Learn More <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Counter Section -->
+  <div class="counter-section" style="background: linear-gradient(135deg, var(--blue-dark), var(--blue));">
+    <div class="counter-grid">
+      <div class="counter-item reveal">
+        <div class="counter-number" data-count="25">0</div>
+        <div class="counter-label" style="color: rgba(255,255,255,0.6);">Countries</div>
+      </div>
+      <div class="counter-item reveal" style="transition-delay: 0.1s">
+        <div class="counter-number" data-count="150">0</div>
+        <div class="counter-label" style="color: rgba(255,255,255,0.6);">Projects</div>
+      </div>
+      <div class="counter-item reveal" style="transition-delay: 0.2s">
+        <div class="counter-number" data-count="50000">0</div>
+        <div class="counter-label" style="color: rgba(255,255,255,0.6);">Lives Touched</div>
+      </div>
+      <div class="counter-item reveal" style="transition-delay: 0.3s">
+        <div class="counter-number" data-count="30">0</div>
+        <div class="counter-label" style="color: rgba(255,255,255,0.6);">Schools Built</div>
+      </div>
+      <div class="counter-item reveal" style="transition-delay: 0.4s">
+        <div class="counter-number" data-count="100">0</div>
+        <div class="counter-label" style="color: rgba(255,255,255,0.6);">Boreholes</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="reveal">
+      <div class="section-title">Support Our Programs</div>
+      <p>Your generous donation can help us expand these life-changing programs to more communities.</p>
+      <button class="btn-white" onclick="navigateTo('join')">Donate Now ❤️</button>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== BOARD OF TRUSTEES ==================== -->
+<div class="page" id="page-trustees">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1>Board of Trustees</h1>
+      <p>Meet the dedicated leaders guiding our mission forward</p>
+      <div class="breadcrumb">
+        <a href="#" onclick="navigateTo('home')">Home</a>
+        <span>→</span>
+        <span style="color: var(--orange-light)">Board of Trustees</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Featured Trustee / Chairman -->
+  <section style="background: var(--off-white);">
+    <div class="featured-trustee reveal-scale">
+      <div class="featured-trustee-image">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt="Chairman">
+      </div>
+      <div class="featured-trustee-content">
+        <div class="section-badge">✦ CHAIRMAN</div>
+        <h2>Dr. Emmanuel Okafor</h2>
+        <div class="trustee-role">Chairman, Board of Trustees</div>
+        <p>
+          Dr. Emmanuel Okafor has been the driving force behind Saving Lives and Hope Charity 
+          Foundation since its inception. With over 30 years of experience in international 
+          development and humanitarian work, he brings unparalleled expertise and passionate 
+          leadership to our organization.
+        </p>
+        <p>
+          Under his visionary guidance, the foundation has grown from a local initiative to 
+          a global force for positive change, touching lives across 25 countries. His 
+          commitment to transparency, impact-driven programs, and sustainable development 
+          has earned the foundation recognition from international bodies.
+        </p>
+        <p>
+          "Our greatest achievement is not in the numbers — it's in the smiles we've restored, 
+          the hopes we've renewed, and the lives we've transformed."
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Board Members -->
+  <section class="trustees-section">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-badge">✦ OUR TEAM</div>
+      <div class="section-title">Board Members</div>
+      <div class="section-subtitle" style="margin: 0 auto;">
+        Dedicated professionals committed to making a lasting impact
+      </div>
+    </div>
+    
+    <div class="trustees-grid">
+      <div class="trustee-card reveal" style="transition-delay: 0.1s">
+        <div class="trustee-image">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Vice Chairman">
+          <div class="trustee-overlay">
+            <div class="trustee-social">
+              <a href="#">in</a>
+              <a href="#">𝕏</a>
+              <a href="#">f</a>
+            </div>
+          </div>
+        </div>
+        <div class="trustee-info">
+          <h3>Mrs. Sarah Adebayo</h3>
+          <span>Vice Chairperson</span>
+          <p>International development expert with 20+ years of experience in NGO management and advocacy.</p>
+        </div>
+      </div>
+      
+      <div class="trustee-card reveal" style="transition-delay: 0.2s">
+        <div class="trustee-image">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80" alt="Secretary">
+          <div class="trustee-overlay">
+            <div class="trustee-social">
+              <a href="#">in</a>
+              <a href="#">𝕏</a>
+              <a href="#">f</a>
+            </div>
+          </div>
+        </div>
+        <div class="trustee-info">
+          <h3>Mr. James Okonkwo</h3>
+          <span>Secretary General</span>
+          <p>Renowned legal expert specializing in international humanitarian law and nonprofit governance.</p>
+        </div>
+      </div>
+      
+      <div class="trustee-card reveal" style="transition-delay: 0.3s">
+        <div class="trustee-image">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" alt="Treasurer">
+          <div class="trustee-overlay">
+            <div class="trustee-social">
+              <a href="#">in</a>
+              <a href="#">𝕏</a>
+              <a href="#">f</a>
+            </div>
+          </div>
+        </div>
+        <div class="trustee-info">
+          <h3>Dr. Fatima Hassan</h3>
+          <span>Treasurer</span>
+          <p>Certified public accountant with deep expertise in nonprofit financial management and auditing.</p>
+        </div>
+      </div>
+      
+      <div class="trustee-card reveal" style="transition-delay: 0.4s">
+        <div class="trustee-image">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Director">
+          <div class="trustee-overlay">
+            <div class="trustee-social">
+              <a href="#">in</a>
+              <a href="#">𝕏</a>
+              <a href="#">f</a>
+            </div>
+          </div>
+        </div>
+        <div class="trustee-info">
+          <h3>Prof. Michael Eze</h3>
+          <span>Director of Programs</span>
+          <p>Distinguished professor and researcher in public health with global program management experience.</p>
+        </div>
+      </div>
+      
+      <div class="trustee-card reveal" style="transition-delay: 0.1s">
+        <div class="trustee-image">
+          <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&q=80" alt="Director">
+          <div class="trustee-overlay">
+            <div class="trustee-social">
+              <a href="#">in</a>
+              <a href="#">𝕏</a>
+              <a href="#">f</a>
+            </div>
+          </div>
+        </div>
+        <div class="trustee-info">
+          <h3>Mrs. Grace Nwosu</h3>
+          <span>Director of Operations</span>
+          <p>Operations strategist with extensive experience in logistics and humanitarian supply chain management.</p>
+        </div>
+      </div>
+      
+      <div class="trustee-card reveal" style="transition-delay: 0.2s">
+        <div class="trustee-image">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80" alt="Director">
+          <div class="trustee-overlay">
+            <div class="trustee-social">
+              <a href="#">in</a>
+              <a href="#">𝕏</a>
+              <a href="#">f</a>
+            </div>
+          </div>
+        </div>
+        <div class="trustee-info">
+          <h3>Mr. Daniel Akinola</h3>
+          <span>Director of Fundraising</span>
+          <p>Award-winning fundraiser and relationship builder with connections across global philanthropy networks.</p>
+        </div>
+      </div>
+      
+      <div class="trustee-card reveal" style="transition-delay: 0.3s">
+        <div class="trustee-image">
+          <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&q=80" alt="Director">
+          <div class="trustee-overlay">
+            <div class="trustee-social">
+              <a href="#">in</a>
+              <a href="#">𝕏</a>
+              <a href="#">f</a>
+            </div>
+          </div>
+        </div>
+        <div class="trustee-info">
+          <h3>Dr. Ruth Mensah</h3>
+          <span>Medical Director</span>
+          <p>Experienced physician leading our healthcare initiatives across multiple countries and continents.</p>
+        </div>
+      </div>
+      
+      <div class="trustee-card reveal" style="transition-delay: 0.4s">
+        <div class="trustee-image">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80" alt="Director">
+          <div class="trustee-overlay">
+            <div class="trustee-social">
+              <a href="#">in</a>
+              <a href="#">𝕏</a>
+              <a href="#">f</a>
+            </div>
+          </div>
+        </div>
+        <div class="trustee-info">
+          <h3>Mr. Peter Osei</h3>
+          <span>Youth Ambassador</span>
+          <p>Dynamic youth leader passionate about empowering the next generation through education and mentorship.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="reveal">
+      <div class="section-title">Join Our Leadership Team</div>
+      <p>Interested in contributing your expertise? We're always looking for passionate leaders.</p>
+      <button class="btn-white" onclick="navigateTo('join')">Get In Touch ✉️</button>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== JOIN US PAGE ==================== -->
+<div class="page" id="page-join">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1>Join Us</h1>
+      <p>Become part of the movement that's changing lives worldwide</p>
+      <div class="breadcrumb">
+        <a href="#" onclick="navigateTo('home')">Home</a>
+        <span>→</span>
+        <span style="color: var(--orange-light)">Join Us</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Ways to Help -->
+  <section class="ways-section">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-badge">✦ GET INVOLVED</div>
+      <div class="section-title">Ways You Can Help</div>
+      <div class="section-subtitle" style="margin: 0 auto;">
+        Every contribution, no matter how small, creates ripples of change
+      </div>
+    </div>
+    
+    <div class="ways-grid">
+      <div class="way-card reveal" style="transition-delay: 0.1s">
+        <div class="way-icon">💰</div>
+        <h3>Make a Donation</h3>
+        <p>Your financial support directly funds our programs. 100% of donations go to our projects. Every dollar makes a difference in someone's life.</p>
+      </div>
+      <div class="way-card reveal" style="transition-delay: 0.2s">
+        <div class="way-icon">🙋</div>
+        <h3>Volunteer With Us</h3>
+        <p>Join our team of 1,200+ volunteers worldwide. Share your skills, time, and passion to create meaningful change in communities.</p>
+      </div>
+      <div class="way-card reveal" style="transition-delay: 0.3s">
+        <div class="way-icon">📢</div>
+        <h3>Spread The Word</h3>
+        <p>Help us amplify our message. Share our story on social media, organize fundraisers, and inspire others to join the cause.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Join Form -->
+  <section class="join-section">
+    <div class="join-grid">
+      <div class="join-info reveal-left">
+        <div class="section-badge">✦ JOIN THE MOVEMENT</div>
+        <h2>Ready to Touch Lives?</h2>
+        <p>
+          Whether you want to volunteer, donate, or partner with us, we'd love to hear from you. 
+          Fill out the form and our team will reach out within 24 hours.
+        </p>
+        
+        <ul class="join-benefits">
+          <li>
+            <span class="check">✓</span>
+            <span>Make a direct impact on lives around the world through our verified programs</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span>Receive regular impact reports showing how your contribution makes a difference</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span>Join a community of passionate changemakers and like-minded individuals</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span>Participate in volunteer trips and immersive experiences across the globe</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span>Tax-deductible donations with transparent financial reporting</span>
+          </li>
+        </ul>
+        
+        <div class="join-contact-info">
+          <div class="join-contact-item">
+            <div class="icon">📧</div>
+            <span>info@savinglivesandhope.org</span>
+          </div>
+          <div class="join-contact-item">
+            <div class="icon">📞</div>
+            <span>+1 (555) 123-4567</span>
+          </div>
+          <div class="join-contact-item">
+            <div class="icon">📍</div>
+            <span>123 Hope Avenue, Global City</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="join-form-container reveal-right">
+        <h3 class="form-title">Get In Touch</h3>
+        <p class="form-subtitle">Fill out the form below and we'll get back to you shortly</p>
+        
+        <form id="joinForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" placeholder="Doe" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" placeholder="john@example.com" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+1 (555) 000-0000">
+          </div>
+          
+          <div class="form-group">
+            <label>How Would You Like to Help? *</label>
+            <select required>
+              <option value="">Select an option...</option>
+              <option>Make a Donation</option>
+              <option>Volunteer</option>
+              <option>Corporate Partnership</option>
+              <option>Fundraise for Us</option>
+              <option>Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Your Message</label>
+            <textarea placeholder="Tell us how you'd like to contribute..."></textarea>
+          </div>
+          
+          <div class="form-checkbox">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I agree to receive updates from Saving Lives and Hope Charity Foundation and understand that I can unsubscribe at any time.</label>
+          </div>
+          
+          <button type="submit" class="form-submit">
+            Submit Application →
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter -->
+  <div class="newsletter-section">
+    <div class="newsletter-content reveal">
+      <h2>Stay Updated</h2>
+      <p>Subscribe to our newsletter and receive the latest updates on our projects and impact stories.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Enter your email address...">
+        <button onclick="showToast('Thank you for subscribing! 🎉')">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-about">
+      <svg width="60" height="60" viewBox="0 0 100 100" style="margin-bottom: 20px;">
+        <circle cx="50" cy="35" r="20" fill="none" stroke="#3498db" stroke-width="2.5"/>
+        <ellipse cx="50" cy="35" rx="20" ry="20" fill="url(#globe-grad2)" opacity="0.9"/>
+        <defs>
+          <linearGradient id="globe-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#2ecc71"/>
+            <stop offset="50%" style="stop-color:#3498db"/>
+            <stop offset="100%" style="stop-color:#2ecc71"/>
+          </linearGradient>
+        </defs>
+        <path d="M28 58 Q38 42 50 55 Q62 42 72 58" fill="#F47920"/>
+        <path d="M25 62 Q38 45 50 58 Q62 45 75 62" fill="#F47920" opacity="0.7"/>
+        <path d="M20 70 Q40 64 60 72 Q70 66 80 70" fill="none" stroke="#F47920" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p>Saving Lives and Hope Charity Foundation is dedicated to touching lives globally through compassion, sustainable development, and humanitarian action.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+    
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="#" onclick="navigateTo('home')">Home</a></li>
+        <li><a href="#" onclick="navigateTo('about')">About Us</a></li>
+        <li><a href="#" onclick="navigateTo('programs')">Programs</a></li>
+        <li><a href="#" onclick="navigateTo('trustees')">Board of Trustees</a></li>
+        <li><a href="#" onclick="navigateTo('join')">Join Us</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h3>Programs</h3>
+      <ul class="footer-links">
+        <li><a href="#">Healthcare</a></li>
+        <li><a href="#">Education</a></li>
+        <li><a href="#">Clean Water</a></li>
+        <li><a href="#">Food Security</a></li>
+        <li><a href="#">Emergency Relief</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column footer-contact">
+      <h3>Contact Us</h3>
+      <p><span class="icon">📍</span> 123 Hope Avenue, Global City, World</p>
+      <p><span class="icon">📧</span> info@savinglivesandhope.org</p>
+      <p><span class="icon">📞</span> +1 (555) 123-4567</p>
+      <p><span class="icon">🕐</span> Mon - Fri: 9:00 AM - 5:00 PM</p>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>© 2025 Saving Lives and Hope Charity Foundation. All rights reserved.</p>
+    <p>Touching lives globally ❤️ | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+
+<!-- Success Modal -->
+<div class="modal-overlay" id="successModal" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-icon">✓</div>
+    <h2>Thank You!</h2>
+    <p>Your application has been submitted successfully. Our team will reach out to you within 24 hours.</p>
+    <button class="btn-primary" onclick="closeModal()" style="width: 100%; justify-content: center;">
+      Close
+    </button>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--blue);color:white;padding:16px 30px;border-radius:12px;z-index:99999;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);box-shadow:0 10px 30px rgba(0,0,0,0.3);font-weight:500;"></div>
+
+<script>
+// Preloader
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('hidden');
+  }, 2000);
+});
+
+// Generate Particles
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const particle = document.createElement('div');
+  particle.classList.add('particle');
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.width = (Math.random() * 6 + 3) + 'px';
+  particle.style.height = particle.style.width;
+  particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+  particle.style.animationDelay = (Math.random() * 10) + 's';
+  particle.style.background = Math.random() > 0.5 ? '#F47920' : '#1B3A5C';
+  particlesContainer.appendChild(particle);
+}
+
+// Custom Cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = e.clientX - 10 + 'px';
+  cursor.style.top = e.clientY - 10 + 'px';
+});
+
+document.querySelectorAll('a, button, .program-card, .trustee-card, .way-card, .stat-item, .impact-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+});
+
+// Navbar Scroll
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('navbar');
+  const backToTop = document.getElementById('backToTop');
+  
+  if (window.scrollY > 100) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+  
+  if (window.scrollY > 500) {
+    backToTop.classList.add('visible');
+  } else {
+    backToTop.classList.remove('visible');
+  }
+  
+  // Reveal animations
+  revealElements();
+});
+
+// Reveal on Scroll
+function revealElements() {
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+  reveals.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 50) {
+      el.classList.add('revealed');
+    }
+  });
+}
+
+// Initial reveal check
+setTimeout(revealElements, 100);
+
+// Counter Animation
+function animateCounters() {
+  const counters = document.querySelectorAll('[data-count]');
+  counters.forEach(counter => {
+    if (counter.dataset.animated) return;
+    const rect = counter.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 50) {
+      counter.dataset.animated = 'true';
+      const target = parseInt(counter.dataset.count);
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+      
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          counter.textContent = target.toLocaleString() + '+';
+          clearInterval(timer);
+        } else {
+          counter.textContent = Math.floor(current).toLocaleString();
+        }
+      }, 16);
+    }
+  });
+}
+
+window.addEventListener('scroll', animateCounters);
+setTimeout(animateCounters, 2500);
+
+// Page Navigation
+function navigateTo(pageId) {
+  event.preventDefault();
+  
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active', 'visible');
+  });
+  
+  // Show target page
+  const targetPage = document.getElementById('page-' + pageId);
+  targetPage.classList.add('active');
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  // Trigger animation after a brief delay
+  setTimeout(() => {
+    targetPage.classList.add('visible');
+    // Reset and re-trigger reveal animations
+    targetPage.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+      el.classList.remove('revealed');
+    });
+    setTimeout(revealElements, 300);
+    setTimeout(animateCounters, 500);
+  }, 100);
+  
+  // Update nav active state
+  document.querySelectorAll('.nav-links li a').forEach(link => {
+    link.classList.remove('active');
+    if (link.dataset.page === pageId) {
+      link.classList.add('active');
+    }
+  });
+}
+
+// Initial page visibility
+document.getElementById('page-home').classList.add('visible');
+
+// Mobile Menu
+function toggleMobile() {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.classList.toggle('active');
+  mobileMenu.classList.toggle('active');
+  document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+}
+
+// Scroll to section
+function scrollToSection(id) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// Form Submit
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('successModal').classList.add('active');
+  e.target.reset();
+}
+
+// Close Modal
+function closeModal() {
+  document.getElementById('successModal').classList.remove('active');
+}
+
+// Toast
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => {
+    toast.style.transform = 'translateX(-50%) translateY(100px)';
+  }, 3000);
+}
+
+// Smooth parallax on mouse move for hero
+document.querySelector('.hero').addEventListener('mousemove', (e) => {
+  const shapes = document.querySelectorAll('.hero-shape');
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  
+  shapes.forEach((shape, i) => {
+    const speed = (i + 1) * 0.5;
+    shape.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+  });
+});
+
+// Tilt effect on cards
+document.querySelectorAll('.program-card, .trustee-card, .impact-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// Typing effect for hero (subtle)
+const heroTitle = document.querySelector('.hero h1');
+if (heroTitle) {
+  heroTitle.style.opacity = '0';
+  setTimeout(() => {
+    heroTitle.style.opacity = '1';
+    heroTitle.style.animation = 'fadeInUp 1s ease 0.5s both';
+  }, 300);
+}
+</script>
+
+</body>
+</html>
